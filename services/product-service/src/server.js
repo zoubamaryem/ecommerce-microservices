@@ -1,0 +1,26 @@
+const app = require('./app');
+const { connectDB } = require('./config/database');
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3002;
+
+// Démarrer le serveur
+const startServer = async () => {
+  try {
+    // Connecter à MongoDB
+    await connectDB();
+    console.log('✅ MongoDB connected successfully');
+
+    // Démarrer le serveur
+    app.listen(PORT, () => {
+      console.log(`🚀 Product Service is running on port ${PORT}`);
+      console.log(`📍 Health check: http://localhost:${PORT}/health`);
+      console.log(`📍 API: http://localhost:${PORT}/api/products`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
