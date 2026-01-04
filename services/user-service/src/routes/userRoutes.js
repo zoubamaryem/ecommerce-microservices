@@ -26,6 +26,9 @@ const loginValidation = [
 router.post('/register', registerValidation, userController.register);
 router.post('/login', loginValidation, userController.login);
 
+// Route pour vérification inter-services (accessible sans auth stricte)
+router.get('/:id', userController.getUserById);
+
 // Routes protégées (nécessitent authentification)
 router.get('/profile', authenticate, userController.getProfile);
 router.put('/profile', authenticate, userController.updateProfile);
